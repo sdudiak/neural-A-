@@ -1,0 +1,6 @@
+matplotlib
+opencv-python
+numpy
+black
+lightning
+segmentation-models-pytorch
