@@ -1,18 +1,18 @@
-import cv2
-import numpy as np
+#!/usr/bin/env python
+import sys, os
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+
+import random, math, copy
+import cv2, torch
+
 from torch.utils.data import Dataset
-import torch
 from collections import namedtuple
-from astar import ClassicAstar
-import random
-import math
-import os
-import re
-from custom_types import Node2d, ProblemInstance, node2onehottensor, nodelist2otensor
-import heuristics
+
 from display import Displayer
-from astar_refactored import Astar
+from classic_astar import Astar
 from custom_exceptions import PathNotFoundException
+from custom_types import Node2d, node2onehottensor, nodelist2otensor
 
 
 PathPlaningDataItem = namedtuple(
@@ -92,7 +92,7 @@ class PathPlanningDataset(Dataset):
         map_size,
         problems_on_one_map,
         heuristic,
-        max_astar_iterations:int,
+        max_astar_iterations: int,
         randomize_points: bool = False,
     ) -> None:
         super().__init__()
@@ -113,24 +113,29 @@ class PathPlanningDataset(Dataset):
         dataitem = self.data[index]
         return dataitem.map, dataitem.start, dataitem.goal, dataitem.path
 
+    def create_one_item_dataset(self):
+        self.data = [self.data[0]]
+
     def prepare_dataset(self):
         for filename in os.listdir(self.map_folder_path):
             if not filename.endswith(".png"):
                 continue
             file_path = os.path.join(self.map_folder_path, filename)
 
-            matrix = png_to_binary_matrix(file_path, self.map_size, 1)
+            matrix_original = png_to_binary_matrix(file_path, self.map_size, 1)
             for seed in range(self.problems_on_one_map):
+                matrix = copy.copy(matrix_original)
                 if not self.randomize_points:
                     start, goal = generate_random_points(matrix, seed)
                 else:
-                    start, goal = generate_random_points(matrix,seed=None)
-                p = ProblemInstance(
-                    input_matrix=matrix, start_node=start, goal_node=goal
+                    start, goal = generate_random_points(matrix, seed=None)
+                astar = Astar(
+                    heuristic=self.heuristic,
+                    costmap_weight=1,
+                    max_iterations=self.max_astar_iterations_,
                 )
-                astar = Astar(heuristic=self.heuristic,costmap_weight=1,max_iterations=self.max_astar_iterations_)
                 try:
-                    solution,_ = astar(matrix,start,goal)
+                    solution, _ = astar._run_astar(matrix, start, goal)
                 except PathNotFoundException as e:
                     print("Path not found, skipping: ", e)
                     continue
@@ -153,4 +158,3 @@ class PathPlanningDataset(Dataset):
         dp.add_title(dataitem.name)
         dp.prepare_plot()
         dp.draw()
-

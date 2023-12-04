@@ -2,16 +2,13 @@ import sys, os
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
-from custom_exceptions import NotConfiguredException
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-import numpy as np
-from enum import Enum
-from custom_types import Node2d, ProblemInstance
-import matplotlib.pyplot as plt
-import matplotlib as mpl
 import copy
 import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+from custom_exceptions import NotConfiguredException
 
 
 # Astar colormap macros
@@ -119,3 +116,16 @@ class Displayer:
             fig, ax = self.plot_
             plt.figure(fig.number)
             plt.show()
+
+    def draw_full_astar_output(
+        self, matrix, start, goal, search_history, path, costmap=None
+    ):
+        self.add_matrix(matrix)
+        self.add_start(start)
+        self.add_goal(goal)
+        self.add_solution(path)
+        self.add_searched_nodes(search_history)
+        if costmap is not None:
+            self.add_cost_matrix(costmap)
+        self.prepare_plot()
+        self.draw()

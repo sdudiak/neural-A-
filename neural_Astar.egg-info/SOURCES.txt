@@ -1,7 +1,0 @@
-LICENSE
-README.md
-setup.py
-neural_Astar.egg-info/PKG-INFO
-neural_Astar.egg-info/SOURCES.txt
-neural_Astar.egg-info/dependency_links.txt
-neural_Astar.egg-info/top_level.txt

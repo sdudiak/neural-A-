@@ -1,42 +1,40 @@
+#!/usr/bin/env python
+import sys, os
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+
 from typing import Any
 import lightning as pl
-from lightning.pytorch.utilities.types import STEP_OUTPUT, OptimizerLRScheduler
-from astar_refactored import Astar
-import heuristics
-from neural_astar import NeuralAstar
 import torch
 
 
 class NeuralAstarTrainingModule(pl.LightningModule):
-    def __init__(self) -> None:
+    def __init__(self, neural_astar, learning_rate=0.01) -> None:
         super().__init__()
-        self.astar = NeuralAstar()
-        self.requires_grad_ = True
+        self.neural_astar_ = neural_astar
+        self.learning_rate_ = learning_rate
+        self
 
-    def forward(self, matrix_batch, start_batch, goal_batch) -> Any:
-        return self.astar(matrix_batch, start_batch, goal_batch)
+    def forward(self, matrix_batch, start_batch, goal_batch):
+        matrix_batch = matrix_batch.unsqueeze(1).float()
+        start_batch = start_batch.unsqueeze(1)
+        goal_batch = goal_batch.unsqueeze(1)
+        _, searched_nodes_batch = self.neural_astar_(
+            matrix_batch, start_batch, goal_batch
+        )
+        return searched_nodes_batch
 
     def configure_optimizers(self) -> torch.optim.Optimizer:
-        torch.set_grad_enabled(True)
-        print("CONFIGURING OPTIMIZERS")
-        return torch.optim.RMSprop(self.astar.parameters(), 0.01)  # Learning rate
+        return torch.optim.RMSprop(
+            self.neural_astar_.parameters(), self.learning_rate_
+        )  # Learning rate
 
     def training_step(self, train_batch, batch_idx):
-        torch.set_grad_enabled(True)
         matrix_batch, start_batch, goal_batch, trajectory_batch = train_batch
-        _, visited_nodes_batch = self.forward(matrix_batch, start_batch, goal_batch)
-        visited_nodes_batch = visited_nodes_batch.unsqueeze(0)
-        print("3")
-        loss = torch.nn.L1Loss()(visited_nodes_batch, trajectory_batch)
-        print("4")
-        self.log("metrics/train_loss", loss)
-        loss.backward()
-        print("5")
-
+        visited_nodes_batch = self(matrix_batch, start_batch, goal_batch)
+        visited_nodes_batch = visited_nodes_batch.squeeze(1)
+        loss = torch.nn.MSELoss()(trajectory_batch, visited_nodes_batch)
+        self.log(
+            "train_loss", loss, on_step=False, on_epoch=True, prog_bar=True, logger=True
+        )
         return loss
-
-    def validation_step(self, *args: Any, **kwargs: Any):
-        torch.set_grad_enabled(True)
-
-        print("VALIDATION")
-        pass
