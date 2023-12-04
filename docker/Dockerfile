@@ -7,15 +7,25 @@ USER root
 RUN apt update && \
     apt install -y \
     git \
+    unzip \
+    wget \
     # opencv dependencies
     ffmpeg \
     libsm6 \
     libxext6
 
 COPY requirements.txt /tmp/requirements.txt
+
 RUN conda install -c anaconda pip && \
     pip install --no-cache-dir -r /tmp/requirements.txt
 
-USER user
+
+WORKDIR /workspaces
+RUN  mkdir -p datasets/raw/street && \
+    wget https://www.movingai.com/benchmarks/street/street-map.zip -P datasets/raw/street/ && \
+    unzip datasets/raw/street/street-map.zip && \
+    rm datasets/raw/street/street-map.zip
+
+    
 
 

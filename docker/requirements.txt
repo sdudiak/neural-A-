@@ -4,3 +4,4 @@ numpy
 black
 lightning
 segmentation-models-pytorch
+tensorboard
