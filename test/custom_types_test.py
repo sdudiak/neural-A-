@@ -1,6 +1,6 @@
 import unittest
 import torch
-from src.custom_types import (
+from neural_astar.custom_types import (
     Node2d,
     node2onehottensor,
     nodelist2otensor,
@@ -9,7 +9,6 @@ from src.custom_types import (
 
 
 class TestYourModule(unittest.TestCase):
-
     def test_node2onehottensor(self):
         tensor_shape = 5
         node = Node2d(2, 3)
@@ -49,8 +48,8 @@ class TestYourModule(unittest.TestCase):
         self.assertIsInstance(result, Node2d)
 
         # Check if the coordinates of the Node2d are correct
-        self.assertEqual(result.x.item(), 2)
-        self.assertEqual(result.y.item(), 3)
+        self.assertEqual(result.x, 2)
+        self.assertEqual(result.y, 3)
 
 
 if __name__ == "__main__":

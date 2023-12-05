@@ -1,6 +1,11 @@
 import unittest
 import torch
-from src.heuristics import chebyshev, euclidian, differentiable_euclidian, Node2d
+from neural_astar.heuristics import (
+    chebyshev,
+    euclidian,
+    differentiable_euclidian,
+    Node2d,
+)
 
 
 class TestDistanceFunctions(unittest.TestCase):

@@ -9,7 +9,7 @@
         "-s",
         "./test",
         "-p",
-        "*test.py"
+        "*_test.py"
     ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",

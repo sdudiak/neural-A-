@@ -1,6 +1,6 @@
 import unittest
 import torch
-from src.differentiable_astar import DifferentiableAstar
+from neural_astar.differentiable_astar import DifferentiableAstar
 
 
 class TestDifferentiableAstar(unittest.TestCase):

@@ -1,26 +1,40 @@
 #!/usr/bin/env python
-import sys, os
+import sys
+import os
+import random
+import math
+import copy
+import cv2
+import torch
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
-import random, math, copy
-import cv2, torch
-
+from typing import Tuple
 from torch.utils.data import Dataset
 from collections import namedtuple
-
 from display import Displayer
 from classic_astar import Astar
 from custom_exceptions import PathNotFoundException
 from custom_types import Node2d, node2onehottensor, nodelist2otensor
-
 
 PathPlaningDataItem = namedtuple(
     "PathPlaningDataItem", ["name", "map", "start", "goal", "path"]
 )
 
 
-def name_dataitem(map_name, item_number):
+def name_dataitem(map_name: str, item_number: int) -> str:
+    """
+    Generate a name for a PathPlaningDataItem based on the map name and item number.
+
+    :param map_name: The name of the map.
+    :type map_name: str
+
+    :param item_number: The item number.
+    :type item_number: int
+
+    :return: The generated name.
+    :rtype: str
+    """
     parts = map_name.split(".")
 
     # Check if the string contains a dot
@@ -34,8 +48,24 @@ def name_dataitem(map_name, item_number):
     return modified_string
 
 
-def png_to_binary_matrix(image_path, target_size, threshold):
-    # Load the image
+def png_to_binary_matrix(
+    image_path: str, target_size: int, threshold: int
+) -> torch.Tensor:
+    """
+    Convert a PNG image to a binary matrix.
+
+    :param image_path: The path to the PNG image.
+    :type image_path: str
+
+    :param target_size: The target size of the resulting matrix.
+    :type target_size: int
+
+    :param threshold: The threshold for binary conversion.
+    :type threshold: int
+
+    :return: The binary matrix.
+    :rtype: torch.Tensor
+    """
     img = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
     _, binary_image = cv2.threshold(img, 0, threshold, cv2.THRESH_BINARY_INV)
     resized = cv2.resize(binary_image, (target_size, target_size))
@@ -43,11 +73,37 @@ def png_to_binary_matrix(image_path, target_size, threshold):
     return resized
 
 
-def calculate_distance(point1, point2):
+def calculate_distance(point1: Node2d, point2: Node2d) -> float:
+    """
+    Calculate the Euclidean distance between two Node2d points.
+
+    :param point1: The first Node2d point.
+    :type point1: Node2d
+
+    :param point2: The second Node2d point.
+    :type point2: Node2d
+
+    :return: The Euclidean distance.
+    :rtype: float
+    """
     return math.sqrt((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2)
 
 
-def generate_random_points(matrix, seed=None):
+def generate_random_points(
+    matrix: torch.Tensor, seed: int = None
+) -> Tuple[Node2d, Node2d]:
+    """
+    Generate random start and goal points on an empty matrix.
+
+    :param matrix: The binary matrix representing the environment.
+    :type matrix: torch.Tensor
+
+    :param seed: The random seed for reproducibility (default is None).
+    :type seed: int, optional
+
+    :return: A tuple containing the start and goal points.
+    :rtype: Tuple[Node2d, Node2d]
+    """
     if seed is not None:
         random.seed(seed)
 
@@ -88,13 +144,34 @@ def generate_random_points(matrix, seed=None):
 class PathPlanningDataset(Dataset):
     def __init__(
         self,
-        map_folder_path,
-        map_size,
-        problems_on_one_map,
-        heuristic,
+        map_folder_path: str,
+        map_size: int,
+        problems_on_one_map: int,
+        heuristic: callable,
         max_astar_iterations: int,
         randomize_points: bool = False,
     ) -> None:
+        """
+        Initialize the PathPlanningDataset.
+
+        :param map_folder_path: The path to the folder containing map images.
+        :type map_folder_path: str
+
+        :param map_size: The size of the maps (assumed to be square).
+        :type map_size: int
+
+        :param problems_on_one_map: The number of problems (start/goal pairs) generated for each map.
+        :type problems_on_one_map: int
+
+        :param heuristic: The heuristic function used by the A* algorithm.
+        :type heuristic: callable
+
+        :param max_astar_iterations: Maximum number of iterations for the A* algorithm.
+        :type max_astar_iterations: int
+
+        :param randomize_points: Flag to indicate whether to randomize start and goal points (default is False).
+        :type randomize_points: bool, optional
+        """
         super().__init__()
         self.data = []
         self.map_folder_path = map_folder_path
@@ -140,7 +217,7 @@ class PathPlanningDataset(Dataset):
                     print("Path not found, skipping: ", e)
                     continue
                 name = name_dataitem(filename, seed)
-                # Convert to tensorflow types
+                # Convert to PyTorch types
                 matrix = torch.from_numpy(matrix)
                 start = node2onehottensor(matrix.shape[0], start)
                 goal = node2onehottensor(matrix.shape[0], goal)
@@ -148,7 +225,13 @@ class PathPlanningDataset(Dataset):
                 data_item = PathPlaningDataItem(name, matrix, start, goal, solution)
                 self.data.append(data_item)
 
-    def display_dataitem_by_idx(self, idx):
+    def display_dataitem_by_idx(self, idx: int) -> None:
+        """
+        Display a specific data item using its index.
+
+        :param idx: The index of the data item.
+        :type idx: int
+        """
         dataitem = self.data[idx]
         dp = Displayer()
         dp.add_matrix(dataitem.map)

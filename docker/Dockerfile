@@ -14,7 +14,7 @@ RUN apt update && \
     libsm6 \
     libxext6
 
-COPY ../requirements.txt /tmp/requirements.txt
+COPY requirements.txt /tmp/requirements.txt
 
 RUN conda install -c anaconda pip && \
     pip install --no-cache-dir -r /tmp/requirements.txt
@@ -22,9 +22,9 @@ RUN conda install -c anaconda pip && \
 
 WORKDIR /workspaces
 RUN  mkdir -p datasets/raw/street && \
-    wget https://www.movingai.com/benchmarks/street/street-map.zip -P datasets/raw/street/ && \
-    unzip datasets/raw/street/street-map.zip -d datasets/raw/street/ && \
-    rm datasets/raw/street/street-map.zip
+    wget https://www.movingai.com/benchmarks/street/street-png.zip -P datasets/raw/street/ && \
+    unzip datasets/raw/street/street-png.zip -d datasets/raw/street/ && \
+    rm datasets/raw/street/street-png.zip
 
     
 

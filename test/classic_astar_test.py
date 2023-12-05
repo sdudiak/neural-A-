@@ -1,11 +1,12 @@
 import unittest
 import torch
 import numpy as np
-from src.classic_astar import (
+from neural_astar.classic_astar import (
     Astar,
     Node2d,
     PathNotFoundException,
-)  
+)
+
 
 class TestAstar(unittest.TestCase):
     def setUp(self):

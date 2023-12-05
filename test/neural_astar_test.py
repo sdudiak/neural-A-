@@ -2,7 +2,7 @@ import unittest
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
-from src.neural_astar import NeuralAstar 
+from neural_astar.neural_astar import NeuralAstar
 
 
 class MockAstar(nn.Module):

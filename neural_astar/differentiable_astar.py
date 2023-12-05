@@ -1,27 +1,48 @@
 import math
 import torch
 import torch.nn as nn
-from heuristics import differentiable_euclidian
+from typing import Tuple
+from heuristics import differentiable_euclidean
 
 import lightning as pl
 
 
 class DifferentiableAstar(pl.LightningModule):
-    def __init__(self, max_iterations=50000, costmap_weight = 1):
+    def __init__(self, max_iterations: int = 50000, costmap_weight: int = 1):
+        """
+        Initialize the DifferentiableAstar model.
+
+        :param max_iterations: Maximum number of iterations for the A* algorithm.
+        :type max_iterations: int, optional
+
+        :param costmap_weight: Weight for the costmap.
+        :type costmap_weight: int, optional
+        """
         super().__init__()
 
         neighbour_filter = torch.ones(1, 1, 3, 3)
         neighbour_filter[0, 0, 1, 1] = 0
 
         self.neighbour_filter = nn.Parameter(neighbour_filter, requires_grad=False)
-        self.heuristic = differentiable_euclidian
+        self.heuristic = differentiable_euclidean
         self.max_iterations_ = max_iterations
         self.costmap_weight_ = costmap_weight
 
     def _select_neighbours(
-        self, node: torch.tensor, neighbour_filter: torch.tensor
-    ) -> torch.tensor:
-        
+        self, node: torch.Tensor, neighbour_filter: torch.Tensor
+    ) -> torch.Tensor:
+        """
+        Select neighboring nodes based on the convolution with a neighbor filter.
+
+        :param node: The input tensor representing the current node.
+        :type node: torch.Tensor
+
+        :param neighbour_filter: The filter for selecting neighbors.
+        :type neighbour_filter: torch.Tensor
+
+        :return: The tensor representing neighboring nodes.
+        :rtype: torch.Tensor
+        """
         node = node.unsqueeze(0)
         batch_size = node.shape[1]
         neighbours = nn.functional.conv2d(
@@ -32,11 +53,29 @@ class DifferentiableAstar(pl.LightningModule):
 
     def _backtrack_path(
         self,
-        start_batch: torch.tensor,
-        goal_batch: torch.tensor,
-        parents_batch: torch.tensor,
+        start_batch: torch.Tensor,
+        goal_batch: torch.Tensor,
+        parents_batch: torch.Tensor,
         t: int,
-    ) -> torch.tensor:
+    ) -> torch.Tensor:
+        """
+        Backtrack the path from the goal to the start based on parent indices.
+
+        :param start_batch: The tensor representing start nodes.
+        :type start_batch: torch.Tensor
+
+        :param goal_batch: The tensor representing goal nodes.
+        :type goal_batch: torch.Tensor
+
+        :param parents_batch: The tensor representing parent indices.
+        :type parents_batch: torch.Tensor
+
+        :param t: The number of iterations.
+        :type t: int
+
+        :return: The tensor representing paths.
+        :rtype: torch.Tensor
+        """
         parents_batch = parents_batch.long()
         goal_batch = goal_batch.long()
         start_batch = start_batch.long()
@@ -48,7 +87,16 @@ class DifferentiableAstar(pl.LightningModule):
             current_node_idx = parents_batch[range(batch_size), current_node_idx]
         return paths_batch
 
-    def _straight_through_softmax_(self, val: torch.tensor) -> torch.tensor:
+    def _straight_through_softmax_(self, val: torch.Tensor) -> torch.Tensor:
+        """
+        Apply a straight-through softmax operation.
+
+        :param val: The input tensor.
+        :type val: torch.Tensor
+
+        :return: The output tensor.
+        :rtype: torch.Tensor
+        """
         val_ = val.reshape(val.shape[0], -1)
         y = val_ / (val_.sum(dim=-1, keepdim=True))
         _, ind = y.max(dim=-1)
@@ -60,12 +108,29 @@ class DifferentiableAstar(pl.LightningModule):
 
     def forward(
         self,
-        matrix_batch: torch.tensor,
-        start_batch: torch.tensor,
-        goal_batch: torch.tensor,
-        costmap_batch: torch.tensor,
+        matrix_batch: torch.Tensor,
+        start_batch: torch.Tensor,
+        goal_batch: torch.Tensor,
+        costmap_batch: torch.Tensor,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """
+        Forward pass of the DifferentiableAstar model.
 
-    ):
+        :param matrix_batch: The tensor representing the environment matrix.
+        :type matrix_batch: torch.Tensor
+
+        :param start_batch: The tensor representing start nodes.
+        :type start_batch: torch.Tensor
+
+        :param goal_batch: The tensor representing goal nodes.
+        :type goal_batch: torch.Tensor
+
+        :param costmap_batch: The tensor representing the costmap.
+        :type costmap_batch: torch.Tensor
+
+        :return: Tensors representing paths and closed lists.
+        :rtype: Tuple[torch.Tensor, torch.Tensor]
+        """
         costmap_batch = costmap_batch.squeeze(1)
         start_batch = start_batch.squeeze(1)
         goal_batch = goal_batch.squeeze(1)
@@ -102,16 +167,16 @@ class DifferentiableAstar(pl.LightningModule):
             is_unsolved = (dist_to_goal == 0).float()
 
             closed_list = closed_list + current_node
-            closed_list = torch.clamp(closed_list, 0, 1)  # Normalize data to <0,1> range
+            closed_list = torch.clamp(
+                closed_list, 0, 1
+            )  # Normalize data to <0,1> range
             open_list = (
                 open_list - is_unsolved * current_node
             )  # remove selected node from open maps
             open_list = torch.clamp(open_list, 0, 1)
 
             # open neighboring nodes, add them to the openlist if they satisfy certain requirements
-            neighbor_nodes = self._select_neighbours(
-                current_node, neighbour_filter
-            )
+            neighbor_nodes = self._select_neighbours(current_node, neighbour_filter)
             neighbor_nodes = neighbor_nodes * matrix_batch
 
             g2 = self._select_neighbours(
@@ -142,4 +207,4 @@ class DifferentiableAstar(pl.LightningModule):
         # backtracking
         paths_batch = self._backtrack_path(start_batch, goal_batch, parents_batch, t)
 
-        return paths_batch.unsqueeze(1), closed_list.unsqueeze(1), 
+        return paths_batch.unsqueeze(1), closed_list.unsqueeze(1)

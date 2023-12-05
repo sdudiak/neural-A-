@@ -8,7 +8,7 @@ import unittest
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
-from src.display import Displayer, NotConfiguredException
+from neural_astar.display import Displayer, NotConfiguredException
 
 
 class TestDisplayer(unittest.TestCase):

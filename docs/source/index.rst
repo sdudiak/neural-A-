@@ -9,8 +9,9 @@ Welcome to Neural Astar's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-
-
+   
+   intro
+   neural_astar
 
 Indices and tables
 ==================

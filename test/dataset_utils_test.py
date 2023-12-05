@@ -2,25 +2,26 @@
 import unittest
 import torch
 
-from src.dataset_utils import (
+from neural_astar.dataset_utils import (
     PathPlanningDataset,
     PathPlaningDataItem,
     name_dataitem,
     calculate_distance,
-    generate_random_points
+    generate_random_points,
 )
 
-from src.custom_types import Node2d
+from neural_astar.custom_types import Node2d
 
-from src.custom_exceptions import PathNotFoundException
+from neural_astar.custom_exceptions import PathNotFoundException
 
-import src.heuristics as heuristics
+import neural_astar.heuristics as heuristics
+
 
 class TestPathPlanningDataset(unittest.TestCase):
     def setUp(self):
         self.map_size = 10
         self.problems_on_one_map = 2
-        self.heuristic = heuristics.euclidian
+        self.heuristic = heuristics.euclidean
         self.max_astar_iterations = 100
         self.randomize_points = False
         self.dataset = PathPlanningDataset(
@@ -74,8 +75,8 @@ class TestPathPlanningDataset(unittest.TestCase):
         self.assertEqual(result, expected_result)
 
     def test_calculate_distance(self):
-        point1 = Node2d(0,0)
-        point2 = Node2d(3,4)
+        point1 = Node2d(0, 0)
+        point2 = Node2d(3, 4)
         result = calculate_distance(point1, point2)
         expected_result = 5.0
         self.assertEqual(result, expected_result)
@@ -85,8 +86,8 @@ class TestPathPlanningDataset(unittest.TestCase):
         seed = 42
         result = generate_random_points(matrix, seed)
         self.assertIsInstance(result, tuple)
-        self.assertEqual(result[0],Node2d(1,9))
-        self.assertEqual(result[1],Node2d(4,0))
+        self.assertEqual(result[0], Node2d(1, 9))
+        self.assertEqual(result[1], Node2d(4, 0))
 
 
 if __name__ == "__main__":
