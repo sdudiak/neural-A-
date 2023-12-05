@@ -7,6 +7,7 @@ from custom_exceptions import NotConfiguredException
 
 
 class AstarEncoder(pl.LightningModule):
+    
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.encoder = None
