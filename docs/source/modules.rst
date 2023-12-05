@@ -1,0 +1,7 @@
+neural_astar
+===
+
+.. toctree::
+   :maxdepth: 4
+
+   neural_astar
