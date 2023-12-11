@@ -1,5 +1,9 @@
+#!/usr/bin/env python
 import sys
 import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+
 from typing import Optional, Tuple
 import copy
 import torch
@@ -21,7 +25,7 @@ AstarColormapList[FREE] = "white"
 AstarColormapList[OCCUPIED] = "black"
 AstarColormapList[EXPLORED] = "yellow"
 AstarColormapList[TRAVERSED] = "red"
-AstarColormapList[START] = "green"
+AstarColormapList[START] = "violet"
 AstarColormapList[GOAL] = "blue"
 
 # Definition of colormap and norms

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>neural_astar &#8212; Neural Astar  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="neural-astar">
+<h1>neural_astar<a class="headerlink" href="#neural-astar" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="neural_astar.html">neural_astar package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.classic_astar">neural_astar.classic_astar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.Astar"><code class="docutils literal notranslate"><span class="pre">Astar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.Astar.forward"><code class="docutils literal notranslate"><span class="pre">Astar.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.Node2d"><code class="docutils literal notranslate"><span class="pre">Node2d</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.Node2d.x"><code class="docutils literal notranslate"><span class="pre">Node2d.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.Node2d.y"><code class="docutils literal notranslate"><span class="pre">Node2d.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar"><code class="docutils literal notranslate"><span class="pre">NodeAstar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar.cost"><code class="docutils literal notranslate"><span class="pre">NodeAstar.cost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar.g"><code class="docutils literal notranslate"><span class="pre">NodeAstar.g</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar.h"><code class="docutils literal notranslate"><span class="pre">NodeAstar.h</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar.node"><code class="docutils literal notranslate"><span class="pre">NodeAstar.node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.classic_astar.NodeAstar.parent"><code class="docutils literal notranslate"><span class="pre">NodeAstar.parent</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.custom_exceptions">neural_astar.custom_exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_exceptions.InvalidProblemException"><code class="docutils literal notranslate"><span class="pre">InvalidProblemException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_exceptions.NotConfiguredException"><code class="docutils literal notranslate"><span class="pre">NotConfiguredException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_exceptions.PathNotFoundException"><code class="docutils literal notranslate"><span class="pre">PathNotFoundException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.custom_types">neural_astar.custom_types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode.cost"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode.cost</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode.g"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode.g</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode.h"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode.h</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode.node"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode.node</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.ClassicAstarNode.parent"><code class="docutils literal notranslate"><span class="pre">ClassicAstarNode.parent</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.Node2d"><code class="docutils literal notranslate"><span class="pre">Node2d</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.Node2d.x"><code class="docutils literal notranslate"><span class="pre">Node2d.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.Node2d.y"><code class="docutils literal notranslate"><span class="pre">Node2d.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.node2onehottensor"><code class="docutils literal notranslate"><span class="pre">node2onehottensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.nodelist2otensor"><code class="docutils literal notranslate"><span class="pre">nodelist2otensor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.custom_types.onehottensor2node2d"><code class="docutils literal notranslate"><span class="pre">onehottensor2node2d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.dataset_utils">neural_astar.dataset_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem.goal"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem.goal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem.map"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem.map</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem.name"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem.path"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem.path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlaningDataItem.start"><code class="docutils literal notranslate"><span class="pre">PathPlaningDataItem.start</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlanningDataset"><code class="docutils literal notranslate"><span class="pre">PathPlanningDataset</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlanningDataset.create_one_item_dataset"><code class="docutils literal notranslate"><span class="pre">PathPlanningDataset.create_one_item_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlanningDataset.display_dataitem_by_idx"><code class="docutils literal notranslate"><span class="pre">PathPlanningDataset.display_dataitem_by_idx()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.PathPlanningDataset.prepare_dataset"><code class="docutils literal notranslate"><span class="pre">PathPlanningDataset.prepare_dataset()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.calculate_distance"><code class="docutils literal notranslate"><span class="pre">calculate_distance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.generate_random_points"><code class="docutils literal notranslate"><span class="pre">generate_random_points()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.name_dataitem"><code class="docutils literal notranslate"><span class="pre">name_dataitem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.dataset_utils.png_to_binary_matrix"><code class="docutils literal notranslate"><span class="pre">png_to_binary_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.differentiable_astar">neural_astar.differentiable_astar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.differentiable_astar.DifferentiableAstar"><code class="docutils literal notranslate"><span class="pre">DifferentiableAstar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.differentiable_astar.DifferentiableAstar.forward"><code class="docutils literal notranslate"><span class="pre">DifferentiableAstar.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.display">neural_astar.display module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer"><code class="docutils literal notranslate"><span class="pre">Displayer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_cost_matrix"><code class="docutils literal notranslate"><span class="pre">Displayer.add_cost_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_goal"><code class="docutils literal notranslate"><span class="pre">Displayer.add_goal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_matrix"><code class="docutils literal notranslate"><span class="pre">Displayer.add_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_searched_nodes"><code class="docutils literal notranslate"><span class="pre">Displayer.add_searched_nodes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_solution"><code class="docutils literal notranslate"><span class="pre">Displayer.add_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_start"><code class="docutils literal notranslate"><span class="pre">Displayer.add_start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.add_title"><code class="docutils literal notranslate"><span class="pre">Displayer.add_title()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.draw"><code class="docutils literal notranslate"><span class="pre">Displayer.draw()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.draw_full_astar_output"><code class="docutils literal notranslate"><span class="pre">Displayer.draw_full_astar_output()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.display.Displayer.prepare_plot"><code class="docutils literal notranslate"><span class="pre">Displayer.prepare_plot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.display.matrix_check"><code class="docutils literal notranslate"><span class="pre">matrix_check()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.encoders">neural_astar.encoders module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.AstarEncoder"><code class="docutils literal notranslate"><span class="pre">AstarEncoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.AstarEncoder.add_encoder"><code class="docutils literal notranslate"><span class="pre">AstarEncoder.add_encoder()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.AstarEncoder.forward"><code class="docutils literal notranslate"><span class="pre">AstarEncoder.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.CNN.CHANNELS"><code class="docutils literal notranslate"><span class="pre">CNN.CHANNELS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.encoders.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.heuristics">neural_astar.heuristics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.heuristics.chebyshev"><code class="docutils literal notranslate"><span class="pre">chebyshev()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.heuristics.differentiable_euclidean"><code class="docutils literal notranslate"><span class="pre">differentiable_euclidean()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.heuristics.euclidean"><code class="docutils literal notranslate"><span class="pre">euclidean()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.neural_astar">neural_astar.neural_astar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.neural_astar.NeuralAstar"><code class="docutils literal notranslate"><span class="pre">NeuralAstar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.neural_astar.NeuralAstar.forward"><code class="docutils literal notranslate"><span class="pre">NeuralAstar.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar.training_module">neural_astar.training_module module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_astar.html#neural_astar.training_module.NeuralAstarTrainingModule"><code class="docutils literal notranslate"><span class="pre">NeuralAstarTrainingModule</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.training_module.NeuralAstarTrainingModule.configure_optimizers"><code class="docutils literal notranslate"><span class="pre">NeuralAstarTrainingModule.configure_optimizers()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.training_module.NeuralAstarTrainingModule.forward"><code class="docutils literal notranslate"><span class="pre">NeuralAstarTrainingModule.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_astar.html#neural_astar.training_module.NeuralAstarTrainingModule.training_step"><code class="docutils literal notranslate"><span class="pre">NeuralAstarTrainingModule.training_step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="neural_astar.html#module-neural_astar">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Neural Astar</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="neural_astar.html">neural_astar package</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Stanisław Dudiak.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
+      
+      |
+      <a href="_sources/modules.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

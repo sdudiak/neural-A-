@@ -69,8 +69,8 @@ class NeuralAstarTrainingModule(pl.LightningModule):
             torch.Tensor: Loss for the training step.
         """
         matrix_batch, start_batch, goal_batch, trajectory_batch = train_batch
+        trajectory_batch = trajectory_batch.unsqueeze(1)
         visited_nodes_batch = self(matrix_batch, start_batch, goal_batch)
-        visited_nodes_batch = visited_nodes_batch.squeeze(1)
         loss = torch.nn.MSELoss()(trajectory_batch, visited_nodes_batch)
         self.log(
             "train_loss", loss, on_step=False, on_epoch=True, prog_bar=True, logger=True

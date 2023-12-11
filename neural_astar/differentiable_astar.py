@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__)))
+
 import math
 import torch
 import torch.nn as nn

@@ -16,7 +16,7 @@ class NeuralAstar(pl.LightningModule):
         classic_astar_ (Astar): Classic A* algorithm.
         differentiable_astar_ (DifferentiableAstar): Differentiable A* algorithm.
         encoder_ (AstarEncoder): A* encoder.
-        use_start_goal_data_ (bool): Flag indicating whether to use start and goal data.
+        use_start_goal_data_ (bool): Flag indicating whether to use start and goal data for training
     """
 
     def __init__(

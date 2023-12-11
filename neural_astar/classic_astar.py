@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import sys
 import os
-from typing import Optional, Tuple, List, Union, Any, Callable
 
 sys.path.append(os.path.join(os.path.dirname(__file__)))
 
+from typing import Optional, Tuple, List, Union, Any, Callable
 import numpy as np
 import lightning as pl
 import torch
