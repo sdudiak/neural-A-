@@ -12,6 +12,7 @@ Welcome to Neural Astar's documentation!
    
    intro
    neural_astar
+   modules
 
 Indices and tables
 ==================
