@@ -31,3 +31,8 @@ exclude_patterns = []
 
 html_theme = "alabaster"
 html_static_path = ["_static"]
+
+strip_signature_backslash = False
+napoleon_strip_signature_backslash = False
+autodoc_strip_signature_backslash = False
+strip_signature_backslash = False
